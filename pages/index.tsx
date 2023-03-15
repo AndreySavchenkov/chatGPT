@@ -84,18 +84,22 @@ const Home:FC<HomeProps> = ({apiKey}) => {
       <div className={styles.title}>Chat GPT</div>
       <div className={styles.innerContainer}>
         <div className={styles.messages}>
-          {messages.map((message, index) => (
-            <div key={index} style={{flexDirection: message.role === 'user' ? 'row-reverse' : 'row'}}
-                 className={styles.message}>
-              <span className={styles.message_role}>{message.role}</span>
-              <div className={styles.message_content}>
-                {replaceCodeInString(message.content)}
-              </div>
-            </div>
-          ))}
+          {messages.map((message, index) => {
+            if(index !== 0) {
+              return (
+                <div key={index} style={{flexDirection: message.role === 'user' ? 'row-reverse' : 'row'}}
+                     className={styles.message}>
+                  <span className={styles.message_role}>{message.role}</span>
+                  <div className={styles.message_content}>
+                    {replaceCodeInString(message.content)}
+                  </div>
+                </div>
+              )
+            }
+          })}
           <div ref={messagesEndRef}/>
         </div>
-
+        {isLoading && <div className={styles.loader}/>}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <Controller
             control={control}
