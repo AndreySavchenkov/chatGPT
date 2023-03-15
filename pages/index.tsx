@@ -12,7 +12,7 @@ type FormType = {
 
 type Message = {
   role: ChatCompletionRequestMessageRoleEnum,
-  content: string,
+  content: any,
 }
 
 export default function Home() {
@@ -46,7 +46,8 @@ export default function Home() {
 
     setMessages((prevMessages) => [...prevMessages, {
       role: ChatCompletionRequestMessageRoleEnum.Assistant,
-      content: response.data.choices[0].message.content || ''
+      // @ts-ignore
+      content: response.data.choices[0].message.content || '',
     }]);
     setIsLoading(false);
   }
