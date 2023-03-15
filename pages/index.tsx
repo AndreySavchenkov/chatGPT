@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.scss'
 import {Controller, useForm} from "react-hook-form";
 import {ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi} from "openai";
-import {useEffect, useRef, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
 
@@ -15,7 +15,11 @@ type Message = {
   content: any,
 }
 
-export default function Home() {
+type HomeProps = {
+  apiKey: string;
+}
+
+const Home:FC<HomeProps> = ({apiKey}) => {
   const [messages, setMessages] = useState<Message[]>([{role: ChatCompletionRequestMessageRoleEnum.User, content: ''}])
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +28,7 @@ export default function Home() {
   const {control, handleSubmit, reset} = useForm({defaultValues: {request: ''}});
 
   const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: apiKey,
   })
 
   const openai = new OpenAIApi(configuration);
@@ -110,3 +114,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default Home;
