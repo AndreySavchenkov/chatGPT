@@ -24,7 +24,7 @@ export default function Home() {
   const {control, handleSubmit, reset} = useForm({defaultValues: {request: ''}});
 
   const configuration = new Configuration({
-    apiKey: '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',
+    apiKey: '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',
   })
 
   const openai = new OpenAIApi(configuration);
