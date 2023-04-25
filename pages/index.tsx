@@ -3,7 +3,6 @@ import {Controller, useForm} from "react-hook-form";
 import {ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi} from "openai";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import axios from "axios";
 import {withAuth} from "../hoocs/withAuth";
 
 type FormType = {
@@ -117,17 +116,6 @@ const Home:FC<HomeProps> = ({apiKey}) => {
       </div>
     </div>
   )
-}
-
-export async function getStaticProps() {
-  const res = await axios.get('https://limitless-hollows-24003.herokuapp.com/api/articles');
-  const data = res.data;
-
-  return {
-    props: {
-      articles: data,
-    },
-  };
 }
 
 export default withAuth(Home);
