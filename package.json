@@ -23,6 +23,7 @@
     "react-hook-form": "^7.43.5",
     "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.59.2",
+    "strapi-sdk-javascript": "^0.3.3",
     "typescript": "4.9.5"
   }
 }

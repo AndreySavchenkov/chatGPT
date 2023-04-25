@@ -1,10 +1,10 @@
 import styles from '../styles/Home.module.scss'
 import {Controller, useForm} from "react-hook-form";
 import {ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi} from "openai";
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-
-
+import axios from "axios";
+import {withAuth} from "../hoocs/withAuth";
 
 type FormType = {
   request: string
@@ -17,12 +17,12 @@ type Message = {
 
 type HomeProps = {
   apiKey: string;
+  articles: any;
 }
 
-const Home:FC<HomeProps> = ({apiKey}) => {
+const Home:FC<HomeProps> = ({apiKey,articles}) => {
   const [messages, setMessages] = useState<Message[]>([{role: ChatCompletionRequestMessageRoleEnum.User, content: ''}])
   const [isLoading, setIsLoading] = useState(false);
-
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const {control, handleSubmit, reset} = useForm({defaultValues: {request: ''}});
@@ -56,11 +56,11 @@ const Home:FC<HomeProps> = ({apiKey}) => {
     setIsLoading(false);
   }
 
-  function replaceCodeInString(inputString: string): React.ReactNode {
+  function replaceCodeInString(inputString: string): ReactNode {
     const regex = /`{3}([\s\S]+?)`{3}/g;
     const parts = inputString.split(regex);
 
-    const nodes: React.ReactNode[] = [];
+    const nodes: ReactNode[] = [];
     parts.forEach((part, i) => {
       if (i % 2 === 0) {
         nodes.push(<span key={i}>{part}</span>);
@@ -119,4 +119,15 @@ const Home:FC<HomeProps> = ({apiKey}) => {
   )
 }
 
-export default Home;
+export async function getStaticProps() {
+  const res = await axios.get('http://127.0.0.1:1337/api/articles');
+  const data = res.data;
+
+  return {
+    props: {
+      articles: data,
+    },
+  };
+}
+
+export default withAuth(Home);

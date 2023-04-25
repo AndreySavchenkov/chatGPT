@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 480px;
+
+  &_field {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+}
