@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {getToken, removeToken} from "../../helper/token";
 import {useRouter} from "next/router";
 import axios from "axios";
+import styles from './AppHeader.module.scss';
+import cn from 'classnames';
 
 type UserType = {
   blocked: boolean;
@@ -43,17 +45,19 @@ const token = getToken();
     }
   }, [token])
 
+  const logoutClass = cn(styles.menu_button, styles.menu_logout);
+
   return (
-    <div>
+    <div className={styles.menu}>
       {user ? (
         <>
           <span>{user.username}</span>
-          <button onClick={handleLogout}>Logout</button>
+          <button className={logoutClass} onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <>
-          <button onClick={()=>router.push('/sign-in')}>Sign In</button>
-          <button onClick={()=>router.push('/sign-up')}>Sign Up</button>
+          <button className={styles.menu_button} onClick={()=>router.push('/sign-in')}>Sign In</button>
+          <button className={styles.menu_button} onClick={()=>router.push('/sign-up')}>Sign Up</button>
         </>
       )}
     </div>

@@ -1,58 +1,68 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Controller, useForm} from "react-hook-form";
 import styles from './index.module.scss';
 import axios from "axios";
 import {useRouter} from "next/router";
+import {toast} from "react-toastify";
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const {handleSubmit, control} = useForm();
 
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
-    try{
+    try {
+      setIsLoading(true)
       await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/auth/local/register`, {
         email: data.email,
         password: data.password,
         username: data.userName,
-      }).then(() => router.push('/sign-in'))
+      }).then(() => {
+        toast.success('Registration was successful!');
+        router.push('/sign-in')
+      })
     } catch (error) {
-      console.log(error)
+      toast.error('Failed to register');
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <span>Registration</span>
+        <span className={styles.form_title}>Sign Up</span>
         <div className={styles.form_field}>
-          <span>User Name</span>
+          <span className={styles.form_label}>Name:</span>
           <Controller
             name={'userName'}
             control={control}
             render={({field}) => (
-              <input {...field}/>
+              <input className={styles.form_input} {...field}/>
             )}/>
         </div>
         <div className={styles.form_field}>
-          <span>Email</span>
+          <span className={styles.form_label}>Email:</span>
           <Controller
             name={'email'}
             control={control}
             render={({field}) => (
-              <input {...field}/>
+              <input className={styles.form_input} type='email' {...field}/>
             )}/>
         </div>
         <div className={styles.form_field}>
-          <span>Password</span>
+          <span className={styles.form_label}>Password:</span>
           <Controller
             name={'password'}
             control={control}
             render={({field}) => (
-              <input {...field}/>
+              <input className={styles.form_input} type='password' {...field}/>
             )}/>
+          <span>Password must be at least 6 characters</span>
         </div>
-        <button type='submit'>Registration</button>
+        <button disabled={isLoading} className={styles.form_button}
+                type='submit'>{isLoading ? '...' : 'Registration'}</button>
       </form>
     </div>
   );

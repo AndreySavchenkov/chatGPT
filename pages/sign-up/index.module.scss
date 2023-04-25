@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 60px);
 }
 
 .form {
@@ -11,9 +11,60 @@
   gap: 28px;
   min-width: 480px;
 
+  @media (max-width: 600px) {
+    min-width: 320px;
+    }
+
+  &_title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 28px;
+    color: #c02929;
+  }
+
+  &_label {
+    font-weight: 500;
+    font-size: 18px;
+    color: #00ADB5;
+  }
+
+  &_input {
+    height: 38px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    color: #EEEEEE;
+    background-color: #393E46;
+    border: 1px solid #EEEEEE;
+  }
+
   &_field {
     display: flex;
     flex-direction: column;
     gap: 14px;
+  }
+
+  &_button {
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    color: #EEEEEE;
+    background-color: #00ADB5;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+
+    &:hover{
+      background-color: #03969d;
+    }
+
+    &:active {
+      background-color: #037f85;
+    }
+
+    &:disabled {
+      background-color: #00ADB5;
+      cursor: not-allowed;
+    }
   }
 }

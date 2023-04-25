@@ -88,7 +88,7 @@ const Home:FC<HomeProps> = ({apiKey}) => {
               return (
                 <div key={index} style={{flexDirection: message.role === 'user' ? 'row-reverse' : 'row'}}
                      className={styles.message}>
-                  <span className={styles.message_role}>{message.role}</span>
+                  <span className={styles.message_role}>{message.role === 'user' ? 'You' : 'AI'}</span>
                   <div className={styles.message_content}>
                     {replaceCodeInString(message.content)}
                   </div>
