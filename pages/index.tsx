@@ -20,7 +20,7 @@ type HomeProps = {
   articles: any;
 }
 
-const Home:FC<HomeProps> = ({apiKey,articles}) => {
+const Home:FC<HomeProps> = ({apiKey}) => {
   const [messages, setMessages] = useState<Message[]>([{role: ChatCompletionRequestMessageRoleEnum.User, content: ''}])
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -120,7 +120,7 @@ const Home:FC<HomeProps> = ({apiKey,articles}) => {
 }
 
 export async function getStaticProps() {
-  const res = await axios.get('http://127.0.0.1:1337/api/articles');
+  const res = await axios.get('https://limitless-hollows-24003.herokuapp.com/api/articles');
   const data = res.data;
 
   return {
