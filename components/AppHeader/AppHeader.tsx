@@ -28,7 +28,7 @@ const token = getToken();
 
   const fetchLoggedInUser = async (token: string) => {
     try {
-      const response = await axios(`http://localhost:1337/api/users/me`, {
+      const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);

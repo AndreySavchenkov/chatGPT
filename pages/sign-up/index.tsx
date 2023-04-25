@@ -2,17 +2,23 @@ import React from 'react';
 import {Controller, useForm} from "react-hook-form";
 import styles from './index.module.scss';
 import axios from "axios";
+import {useRouter} from "next/router";
 
 const Index = () => {
   const {handleSubmit, control} = useForm();
 
+  const router = useRouter();
+
   const onSubmit = async (data: any) => {
-    console.log(data);
-    await axios.post(`${process.env.STRAPI_URL}auth/local/register`, {
-      email: data.email,
-      password: data.password,
-      username: data.userName,
-    })
+    try{
+      await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/auth/local/register`, {
+        email: data.email,
+        password: data.password,
+        username: data.userName,
+      }).then(() => router.push('/sign-in'))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

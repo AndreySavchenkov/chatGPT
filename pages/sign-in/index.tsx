@@ -9,10 +9,10 @@ const Index = () => {
   const {handleSubmit, control} = useForm();
 
   const router = useRouter();
-
+console.log(process.env.STRAPI_URL)
   const onSubmit = async (data: any) => {
     try {
-      const response = await axios.post(`${process.env.STRAPI_URL}auth/local`, {
+      const response = await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/auth/local`, {
         identifier: data.email,
         password: data.password,
       })
