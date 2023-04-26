@@ -4,6 +4,9 @@ import {ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi} from "op
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {withAuth} from "../hoocs/withAuth";
+import Image from "next/image";
+import copy from '../public/copy.svg';
+import {toast} from "react-toastify";
 
 type FormType = {
   request: string
@@ -29,6 +32,12 @@ const Home:FC<HomeProps> = ({apiKey}) => {
   const configuration = new Configuration({
     apiKey: apiKey,
   })
+
+  function handleCopyClick(event: React.MouseEvent, text: string) {
+    event.preventDefault();
+    navigator.clipboard.writeText(text);
+    toast.success('Text added to clipboard!');
+  }
 
   const openai = new OpenAIApi(configuration);
 
@@ -92,13 +101,15 @@ const Home:FC<HomeProps> = ({apiKey}) => {
                   <div className={styles.message_content}>
                     {replaceCodeInString(message.content)}
                   </div>
+                  {
+                    message.role !== 'user' && <Image className={styles.copyIcon} src={copy} onClick={(e) => handleCopyClick(e,message.content)} alt={'clipboard icon'} width={20} height={20}/>
+                  }
                 </div>
               )
             }
           })}
           <div ref={messagesEndRef}/>
         </div>
-        {isLoading && <div className={styles.loader}/>}
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <Controller
             control={control}

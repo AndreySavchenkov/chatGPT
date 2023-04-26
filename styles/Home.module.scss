@@ -23,6 +23,13 @@
   height: calc(100vh - 73px - 60px);
 }
 
+.copyIcon {
+  position: absolute;
+  top: 20px;
+  left: -2px;
+  cursor: pointer;
+}
+
 .messages {
   display: flex;
   flex-direction: column;
@@ -36,6 +43,7 @@
 }
 
 .message {
+  position: relative;
   display: flex;
   gap: 20px;
 
@@ -74,44 +82,25 @@
     color: #EEEEEE;
     background-color: #00ADB5;
     cursor: pointer;
+
+    &:hover{
+      background-color: #03969d;
+    }
+
+    &:active {
+      background-color: #037f85;
+    }
+
+    &:disabled {
+      background-color: #00ADB5;
+      cursor: not-allowed;
+    }
   }
 }
-
 
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
-  }
-}
-.loader {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  margin: 0 auto;
-}
-
-.loader:before {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 20px;
-  top: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #EEEEEE;
-  animation: loader 0.5s infinite ease-in-out;
-}
-
-@keyframes loader {
-  0% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(20px);
-  }
-  100% {
-    transform: translateX(0);
   }
 }
