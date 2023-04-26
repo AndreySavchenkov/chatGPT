@@ -4,6 +4,7 @@ import styles from './index.module.scss';
 import axios from "axios";
 import {useRouter} from "next/router";
 import {toast} from "react-toastify";
+import Link from "next/link";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +61,10 @@ const Index = () => {
               <input className={styles.form_input} type='password' {...field}/>
             )}/>
           <span>Password must be at least 6 characters</span>
+        </div>
+        <div>
+          <span className={styles.form_subtitle}>If you have an account: </span>
+          <Link href='/sign-in' className={styles.form_link}>Sign In</Link>
         </div>
         <button disabled={isLoading} className={styles.form_button}
                 type='submit'>{isLoading ? '...' : 'Registration'}</button>

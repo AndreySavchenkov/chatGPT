@@ -5,6 +5,7 @@ import axios from "axios";
 import {setToken} from "../../helper/token";
 import {useRouter} from "next/router";
 import {toast} from "react-toastify";
+import Link from 'next/link';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +56,12 @@ const Index = () => {
               <input className={styles.form_input} type='password' {...field}/>
             )}/>
         </div>
-        <button className={styles.form_button} type='submit'>Sign In</button>
+        <div>
+          <span className={styles.form_subtitle}>If you don not have an account: </span>
+          <Link href='/sign-up' className={styles.form_link}>Sign Up</Link>
+        </div>
+
+        <button className={styles.form_button} type='submit'>{isLoading ? '...' : 'Sign In'}</button>
       </form>
     </div>
   );

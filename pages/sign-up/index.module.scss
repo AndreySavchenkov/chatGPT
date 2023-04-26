@@ -44,6 +44,17 @@
     gap: 14px;
   }
 
+  &_link {
+    font-size: 18px;
+    color: #c02929;
+    border-bottom: 1px solid #c02929;
+    cursor: pointer;
+  }
+
+  &_subtitle {
+    color: #00ADB5;
+  }
+
   &_button {
     height: 48px;
     border-radius: 8px;
