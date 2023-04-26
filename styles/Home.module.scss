@@ -31,7 +31,7 @@
   height: calc(100vh - 73px - 60px);
 
   @media (max-width: 600px) {
-    height: calc(100vh - 73px - 40px);
+    height: calc(100vh - 73px - 80px);
   }
 }
 
@@ -55,7 +55,7 @@
 
   @media (max-width: 600px) {
     margin-top: 10px;
-    max-height: calc(100vh - 180px);
+    max-height: calc(100vh - 210px);
   }
 }
 
