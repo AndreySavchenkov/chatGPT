@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import styles from './AppHeader.module.scss';
 import cn from 'classnames';
+import Link from "next/link";
 
 type UserType = {
   blocked: boolean;
@@ -30,7 +31,7 @@ const token = getToken();
 
   const fetchLoggedInUser = async (token: string) => {
     try {
-      const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
+      const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me?populate=*`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);
@@ -49,16 +50,20 @@ const token = getToken();
 
   return (
     <div className={styles.menu}>
+      <div className={styles.menu_inner}>
+        <Link className={router.pathname === '/' ? styles.menu_active : ''} href="/" >Chat</Link>
+        <Link className={router.pathname === '/library' ? styles.menu_active : ''} href="/library">Library</Link>
+      </div>
       {user ? (
-        <>
+        <div className={styles.menu_inner}>
           <span>{user.username}</span>
           <button className={logoutClass} onClick={handleLogout}>Logout</button>
-        </>
+        </div>
       ) : (
-        <>
+        <div className={styles.menu_inner}>
           <button className={styles.menu_button} onClick={()=>router.push('/sign-in')}>Sign In</button>
           <button className={styles.menu_button} onClick={()=>router.push('/sign-up')}>Sign Up</button>
-        </>
+        </div>
       )}
     </div>
   );

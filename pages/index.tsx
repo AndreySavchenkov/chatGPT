@@ -6,7 +6,10 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import {withAuth} from "../hoocs/withAuth";
 import Image from "next/image";
 import copy from '../public/copy.svg';
+import library from '../public/library.svg'
 import {toast} from "react-toastify";
+import axios from "axios";
+import {getToken} from "../helper/token";
 
 type FormType = {
   request: string
@@ -22,7 +25,7 @@ type HomeProps = {
   articles: any;
 }
 
-const Home:FC<HomeProps> = ({apiKey}) => {
+const Home: FC<HomeProps> = ({apiKey}) => {
   const [messages, setMessages] = useState<Message[]>([{role: ChatCompletionRequestMessageRoleEnum.User, content: ''}])
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -80,6 +83,25 @@ const Home:FC<HomeProps> = ({apiKey}) => {
     return <>{nodes}</>;
   }
 
+  const token = getToken();
+
+  const createArticle = async (text: string) => {
+    try {
+      const response = await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
+        {data: {
+            text,
+            userId: "test"
+          }
+        }, {
+          headers: {Authorization: `Bearer ${token}`},
+        });
+      toast.success('Text added to your library!');
+    } catch (error) {
+      console.error(error);
+      toast.error('Some error');
+    }
+  };
+
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -93,7 +115,7 @@ const Home:FC<HomeProps> = ({apiKey}) => {
       <div className={styles.innerContainer}>
         <div className={styles.messages}>
           {messages.map((message, index) => {
-            if(index !== 0) {
+            if (index !== 0) {
               return (
                 <div key={index} style={{flexDirection: message.role === 'user' ? 'row-reverse' : 'row'}}
                      className={styles.message}>
@@ -102,7 +124,15 @@ const Home:FC<HomeProps> = ({apiKey}) => {
                     {replaceCodeInString(message.content)}
                   </div>
                   {
-                    message.role !== 'user' && <Image className={styles.copyIcon} src={copy} onClick={(e) => handleCopyClick(e,message.content)} alt={'clipboard icon'} width={20} height={20}/>
+                    message.role !== 'user' && (
+                      <>
+                        <Image className={styles.copyIcon} src={copy} onClick={(e) => handleCopyClick(e, message.content)}
+                               alt={'clipboard icon'} width={20} height={20}/>
+                        <Image className={styles.libraryIcon} src={library}
+                               onClick={(e) => createArticle(message.content)} alt={'clipboard icon'} width={20}
+                               height={20}/>
+                      </>
+                    )
                   }
                 </div>
               )

@@ -1,0 +1,38 @@
+.messages {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &_date {
+      color: #00ADB5;
+    }
+
+    &_delete {
+      cursor: pointer;
+    }
+
+    &_content {
+
+      background-color: #393E46;
+      padding: 10px;
+      border-radius: 8px;
+
+      @media (max-width: 600px) {
+        max-width: calc(100% - 40px);
+      }
+
+    }
+
+    &_info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+}
