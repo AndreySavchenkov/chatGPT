@@ -27,12 +27,12 @@ const AppHeader = () => {
     router.push("/sign-in");
   };
 
-const token = getToken();
+  const token = getToken();
 
   const fetchLoggedInUser = async (token: string) => {
     try {
       const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me?populate=*`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {Authorization: `Bearer ${token}`},
       });
       setUser(response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const token = getToken();
   };
 
   useEffect(() => {
-    if(token) {
+    if (token) {
       fetchLoggedInUser(token)
     }
   }, [token])
@@ -50,19 +50,21 @@ const token = getToken();
 
   return (
     <div className={styles.menu}>
-      <div className={styles.menu_inner}>
-        <Link className={router.pathname === '/' ? styles.menu_active : ''} href="/" >Chat</Link>
-        <Link className={router.pathname === '/library' ? styles.menu_active : ''} href="/library">Library</Link>
-      </div>
       {user ? (
-        <div className={styles.menu_inner}>
-          <span>{user.username}</span>
-          <button className={logoutClass} onClick={handleLogout}>Logout</button>
-        </div>
+        <>
+          <div className={styles.menu_inner}>
+            <Link className={router.pathname === '/' ? styles.menu_active : ''} href="/">Chat</Link>
+            <Link className={router.pathname === '/library' ? styles.menu_active : ''} href="/library">Library</Link>
+          </div>
+          <div className={styles.menu_inner}>
+            <span>{user.username}</span>
+            <button className={logoutClass} onClick={handleLogout}>Logout</button>
+          </div>
+        </>
       ) : (
         <div className={styles.menu_inner}>
-          <button className={styles.menu_button} onClick={()=>router.push('/sign-in')}>Sign In</button>
-          <button className={styles.menu_button} onClick={()=>router.push('/sign-up')}>Sign Up</button>
+          <button className={styles.menu_button} onClick={() => router.push('/sign-in')}>Sign In</button>
+          <button className={styles.menu_button} onClick={() => router.push('/sign-up')}>Sign Up</button>
         </div>
       )}
     </div>
