@@ -23,22 +23,26 @@ const Index = () => {
   const [articles, setArticles] = useState<ArticleType[]>([]);
   const token = getToken();
 
-  const getArticles = async () => {
-    try {
-      // const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
-      //   headers: {Authorization: `Bearer ${token}`},
-      // });
+  // const getArticles = async () => {
+  //   try {
+  //     const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
+  //       headers: {Authorization: `Bearer ${token}`},
+  //     });
+  //
+  //     const response = await axios.get(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
+  //       {
+  //         headers: {Authorization: `Bearer ${token}`},
+  //       });
+  //    setArticles(response.data.data);
+  //
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+const getArticles = () => {
+  axios.get('https://limitless-hollows-24003.herokuapp.com/api/get-articles', { headers: { Authorization: `Bearer ${token}` } })
+}
 
-      const response = await axios.get(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
-        {
-          headers: {Authorization: `Bearer ${token}`},
-        });
-     setArticles(response.data.data);
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const deleteArticle = async (id: number) => {
     try {
