@@ -25,7 +25,11 @@ const Index = () => {
 
   const getArticles = async () => {
     try {
-      const response = await axios.get(`https://limitless-hollows-24003.herokuapp.com/api/articles??populate=*`,
+      // const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
+      //   headers: {Authorization: `Bearer ${token}`},
+      // });
+
+      const response = await axios.get(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
         {
           headers: {Authorization: `Bearer ${token}`},
         });

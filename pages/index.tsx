@@ -87,14 +87,21 @@ const Home: FC<HomeProps> = ({apiKey}) => {
 
   const createArticle = async (text: string) => {
     try {
-      const response = await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
-        {data: {
+
+      const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
+        headers: {Authorization: `Bearer ${token}`},
+      });
+
+      await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
+        {
+          data: {
             text,
-            userId: "test"
+            userId: meResponse.data.id,
           }
         }, {
           headers: {Authorization: `Bearer ${token}`},
         });
+
       toast.success('Text added to your library!');
     } catch (error) {
       console.error(error);

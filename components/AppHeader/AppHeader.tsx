@@ -31,7 +31,7 @@ const AppHeader = () => {
 
   const fetchLoggedInUser = async (token: string) => {
     try {
-      const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me?populate=*`, {
+      const response = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
         headers: {Authorization: `Bearer ${token}`},
       });
       setUser(response.data);
