@@ -85,35 +85,29 @@ const Home: FC<HomeProps> = ({apiKey}) => {
 
   const token = getToken();
 
-  // const createArticle = async (text: string) => {
-  //   try {
-  //
-  //     const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
-  //       headers: {Authorization: `Bearer ${token}`},
-  //     });
-  //
-  //     await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
-  //       {
-  //         data: {
-  //           text,
-  //           userId: String(meResponse.data.id),
-  //         }
-  //       }, {
-  //         headers: {Authorization: `Bearer ${token}`},
-  //       });
-  //
-  //     toast.success('Text added to your library!');
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error('Some error');
-  //   }
-  // };
+  const createArticle = async (text: string) => {
+    try {
 
-  const createArticle = (text: string) => {
-    axios.post('https://limitless-hollows-24003.herokuapp.com/api/create-article', { text }, { headers: { Authorization: `Bearer ${token}` } })
-  }
+      const meResponse = await axios(`https://limitless-hollows-24003.herokuapp.com/api/users/me`, {
+        headers: {Authorization: `Bearer ${token}`},
+      });
 
+      await axios.post(`https://limitless-hollows-24003.herokuapp.com/api/articles`,
+        {
+          data: {
+            text,
+            userId: String(meResponse.data.id),
+          }
+        }, {
+          headers: {Authorization: `Bearer ${token}`},
+        });
 
+      toast.success('Text added to your library!');
+    } catch (error) {
+      console.error(error);
+      toast.error('Some error');
+    }
+  };
 
   useEffect(() => {
     if (messagesEndRef.current) {
