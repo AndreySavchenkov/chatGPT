@@ -7,6 +7,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import dayjs from "dayjs";
 import Image from "next/image";
 import deleteIcon from '../../public/delete.svg';
+import ReactMarkdown from "react-markdown";
 
 type ArticleType = {
   attributes: {
@@ -64,7 +65,7 @@ const Index = () => {
     const nodes: ReactNode[] = [];
     parts.forEach((part, i) => {
       if (i % 2 === 0) {
-        nodes.push(<span key={i}>{part}</span>);
+        nodes.push(<ReactMarkdown key={i}>{part}</ReactMarkdown>);
       } else {
         nodes.push(<SyntaxHighlighter key={i} language={'typescript'}>{part}</SyntaxHighlighter>);
       }

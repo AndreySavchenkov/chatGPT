@@ -10,6 +10,7 @@ import library from '../public/library.svg'
 import {toast} from "react-toastify";
 import axios from "axios";
 import {getToken} from "../helper/token";
+import ReactMarkdown from "react-markdown";
 
 type FormType = {
   request: string
@@ -74,7 +75,7 @@ const Home: FC<HomeProps> = ({apiKey}) => {
     const nodes: ReactNode[] = [];
     parts.forEach((part, i) => {
       if (i % 2 === 0) {
-        nodes.push(<span key={i}>{part}</span>);
+        nodes.push(<ReactMarkdown key={i}>{part}</ReactMarkdown>);
       } else {
         nodes.push(<SyntaxHighlighter key={i} language={'typescript'}>{part}</SyntaxHighlighter>);
       }
