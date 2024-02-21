@@ -3,7 +3,7 @@ import {Controller, useForm} from "react-hook-form";
 import {ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi} from "openai";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {withAuth} from "../hoocs/withAuth";
+// import {withAuth} from "../hoocs/withAuth";
 import Image from "next/image";
 import copy from '../public/copy.svg';
 import library from '../public/library.svg'
@@ -166,4 +166,5 @@ const Home: FC<HomeProps> = ({apiKey}) => {
   )
 }
 
-export default withAuth(Home);
+// export default withAuth(Home);
+export default Home;

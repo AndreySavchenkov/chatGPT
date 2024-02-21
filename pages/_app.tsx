@@ -1,7 +1,7 @@
 import '../styles/globals.scss'
 import type {AppProps} from 'next/app'
 import {useEffect, useState} from "react";
-import AppHeader from "../components/AppHeader/AppHeader";
+// import AppHeader from "../components/AppHeader/AppHeader";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,7 +15,7 @@ export default function App({Component, pageProps}: AppProps) {
   return (
     <>
       <ToastContainer />
-      <AppHeader/>
+      {/* <AppHeader/> */}
       <Component {...pageProps} apiKey={apiKey}/>
     </>
   )
